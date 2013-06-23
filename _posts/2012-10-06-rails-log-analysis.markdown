@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Rails日志分析-将日志导出为csv
-date: 2012-10-06 10:28
+date: 2012-10-06 10:28:00
 categories: rails
 ---
 

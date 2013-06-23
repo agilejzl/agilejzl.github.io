@@ -1,7 +1,7 @@
 ---
 layout: post
 title: MongoDB查询优化原则
-date: 2012-10-23 14:49
+date: 2012-10-23 14:49:00
 categories: mongo
 ---
 

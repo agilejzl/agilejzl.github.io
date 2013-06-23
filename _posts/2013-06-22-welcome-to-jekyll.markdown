@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Welcome to Jekyll!
-date: 2013-06-22 00:58
+date: 2013-06-22 00:58:00
 categories: newest
 ---
 
