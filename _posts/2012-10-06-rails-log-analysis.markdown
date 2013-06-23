@@ -85,4 +85,3 @@ CSV.open(csv_file_path, "wb:gbk") do |csv|
 	end
 end
 {% endhighlight %}
-
