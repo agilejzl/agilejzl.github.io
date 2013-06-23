@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Backbone标准例子——通讯录"
-date:   2013-04-15 20:09:56
-category: backbone
+title: Backbone标准例子——通讯录
+date: 2013-04-15 20:09:56
+categories: backbone
 ---
 
 通讯录，一个基于Backbone的经典例子。
