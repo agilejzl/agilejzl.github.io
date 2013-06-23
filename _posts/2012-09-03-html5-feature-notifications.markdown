@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Html5新特性-Notifications入门
-date: 2012-9-03 17:27:00
+date: 2012-09-03 17:27:00
 categories: effect
 ---
 
