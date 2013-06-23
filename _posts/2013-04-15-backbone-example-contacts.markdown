@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Backbone标准例子——通讯录
-date: 2013-04-15 20:09:56
+date: 2013-04-15 20:09
 categories: backbone
 ---
 
