@@ -2,14 +2,14 @@
 layout: post
 title: Java分层开发BaseDao
 date: 2012-06-14 20:36:00
-categories: ssh
+categories: java
 ---
 
 本文介绍的是在不使用持久层框架的情况下，用Java反射写的BaseDao，简化Dao层的操作，让Dao的实现层每个方法体只有一行。所有的Dao的实现类继承BaseDao。下面具体讲如何使用BaseDao 。
 
 1.BaseDao代码如下：
 
-{% highlight ruby %}
+<pre><code>
 package dao;
 
 import java.lang.reflect.Field;
@@ -196,11 +196,11 @@ public class BaseDao {
 		return 0;
 	}
 }
-{% endhighlight %}
+</pre></code>
 
 2.连接数据库的DbHelper工具类
 
-{% highlight ruby %}
+<pre><code>
 package utils;
 
 import java.sql.Connection;
@@ -260,11 +260,11 @@ public class DbHelper {
 	}
 
 }
-{% endhighlight %}
+</pre></code>
 
 3.接下来就可以测试BaseDao了。用于测试的User实体类：
 
-{% highlight ruby %}
+<pre><code>
 package entity;
 
 import java.sql.Date;
@@ -326,11 +326,11 @@ public class User {
 	}
 
 }
-{% endhighlight %}
+</pre></code>
 
 4.用于测试的UserDao：
 
-{% highlight ruby %}
+<pre><code>
 package dao;
 
 import java.util.List;
@@ -380,11 +380,11 @@ public class UserDao extends BaseDao {
 		return super.getCount("select count(*) from tbl_user");
 	}
 }
-{% endhighlight %}
+</pre></code>
 
 5.用于测试UserDao的测试类：
 
-{% highlight ruby %}
+<pre><code>
 package test;
 
 import java.sql.Date;
@@ -443,11 +443,11 @@ public class UserDaoTest {
 		return userDao.getUserCount();
 	}
 }
-{% endhighlight %}
+</pre></code>
 
 6.创建用于测试的数据库表：
 
-{% highlight ruby %}
+<pre><code>
 --创建测试表
 create table tbl_user
 (
@@ -458,4 +458,4 @@ create table tbl_user
 );
 
 create sequence seq_user;
-{% endhighlight %}
+</pre></code>

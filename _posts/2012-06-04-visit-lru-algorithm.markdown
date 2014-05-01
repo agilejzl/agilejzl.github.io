@@ -2,12 +2,12 @@
 layout: post
 title: 主存访问LRU模拟算法
 date: 2012-06-4 14:50:00
-categories: java
+categories: algorithm
 ---
 
 主存访问LRU模拟算法，练手。
 
-{% highlight ruby %}
+<pre><code>
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -94,4 +94,4 @@ public class LRU {
 		System.out.println();
 	}
 }
-{% endhighlight %}
+</pre></code>

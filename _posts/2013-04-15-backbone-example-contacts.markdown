@@ -2,7 +2,7 @@
 layout: post
 title: Backbone标准例子——通讯录
 date: 2013-04-15 20:09:00
-categories: backbone
+categories: frontend
 ---
 
 通讯录，一个基于Backbone的经典例子。
@@ -80,7 +80,7 @@ Html代码如下：
 
 Backbone代码如下：
 
-{% highlight ruby %}
+<pre><code>
 (function($) {
   $(document).ready(function() {
     var Contact = Backbone.Model.extend({
@@ -386,6 +386,6 @@ Backbone代码如下：
     Backbone.history.start();
   });
 })(jQuery);
-{% endhighlight %}
+</pre></code>
 
 [page-in-iteye]: http://z2009zxiaolong.iteye.com/blog/1847833

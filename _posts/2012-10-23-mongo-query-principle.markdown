@@ -2,7 +2,7 @@
 layout: post
 title: MongoDB查询优化原则
 date: 2012-10-23 14:49:00
-categories: mongo
+categories: newest
 ---
 
 1.在查询条件、排序条件、统计条件的字段上选择创建索引，可以显著提高查询效率。

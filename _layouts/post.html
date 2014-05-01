@@ -3,7 +3,7 @@ layout: default
 ---
 <h2>{{ page.title }}</h2>
 <p>
-  <div class="meta">日期：{{ page.date | date_to_string }}
+  <div class="meta">日期：{{ page.date | date: "%Y-%m-%d" }}
     <div class="pull-right">分类：{{ page.categories }}</div>
   </div>
 </p>

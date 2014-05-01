@@ -8,12 +8,12 @@ categories: ruby
 刚开始学Ruby时练手的代码。
 
 {% highlight ruby %}
-#encoding:utf-8
-# 快速判定素数，用素数判定素数。比如求1-100之间的素数， 
-# 先求1-10之间的素数为[2,3,5,7]， 
-# 再用11-100的数%[2,3,5,7]，不能被整除的就是素数 
+\#encoding:utf-8
+``快速判定素数，用素数判定素数。比如求1-100之间的素数， 
+先求1-10之间的素数为[2,3,5,7]， 
+再用11-100的数%[2,3,5,7]，不能被整除的就是素数``
 
-# 直接判定一个数是否为素数
+``直接判定一个数是否为素数``
 def is_prime?(n)
 	t = 2
 	while (t <= Math.sqrt(n).to_i)
@@ -25,7 +25,7 @@ def is_prime?(n)
 	if n <= 1
 		return false		
 	end
-	return true
+	true
 end
 
 def get_prime(n1,n2)
@@ -47,7 +47,6 @@ def get_prime(n1,n2)
 		# print i," "
 	}
 	# puts
-
 	start =  Math.sqrt(n2).to_i
 	if start > n1
 		n1 = start
@@ -65,7 +64,7 @@ def get_prime(n1,n2)
 			result_index = result_index + 1
 		end
 	end
-	return result
+	result
 end
 
 puts "请输入两个数并按回车键(格式为a b)："

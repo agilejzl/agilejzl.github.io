@@ -2,7 +2,7 @@
 layout: post
 title: 使用mybatis实现CRUD
 date: 2012-06-14 20:55:00
-categories: ssh
+categories: java
 ---
 
 本文介绍的是mybatis3的使用，针对使用mybatis3作为持久层框架的入门学习。下面具体讲解：
@@ -42,34 +42,34 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  *
  */
 public class MybatisUtil {
-	private static SqlSessionFactory sessionFactory;
-	private SqlSession session;
+  private static SqlSessionFactory sessionFactory;
+  private SqlSession session;
 
-	static {
-		String resource = "mybatis3-config.xml";
-		InputStream inputStream = null;
-		try {
-			inputStream = Resources.getResourceAsStream(resource);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-	}
+  static {
+    String resource = "mybatis3-config.xml";
+    InputStream inputStream = null;
+    try {
+      inputStream = Resources.getResourceAsStream(resource);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+  }
 
-	public static SqlSessionFactory getSqlsessionfactory() {
-		return sessionFactory;
-	}
+  public static SqlSessionFactory getSqlsessionfactory() {
+    return sessionFactory;
+  }
 
-	public static SqlSession getSession() {
-		return sessionFactory.openSession(false);
-	}
+  public static SqlSession getSession() {
+    return sessionFactory.openSession(false);
+  }
 
-	public void closeSession(SqlSession session) {
-		if (session != null) {
-			session.close();
-			session = null;
-		}
-	}
+  public void closeSession(SqlSession session) {
+    if (session != null) {
+      session.close();
+      session = null;
+    }
+  }
 }
 {% endhighlight %}
 
@@ -83,17 +83,17 @@ import java.util.List;
 import entity.User;
 
 public interface UserDao {
-	public List<User> getUserByName(String name);
-	
-	public List<User> getAllUser();
+  public List<User> getUserByName(String name);
+  
+  public List<User> getAllUser();
 
-	public User getUser(String name);
-	
-	public void insertUser(User user);
-	
-	public void updateUser(User user);
-	
-	public void deleteUser(int id);
+  public User getUser(String name);
+  
+  public void insertUser(User user);
+  
+  public void updateUser(User user);
+  
+  public void deleteUser(int id);
 }
 {% endhighlight %}
 
@@ -105,38 +105,33 @@ public interface UserDao {
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserDao">
-	<select id="getAllUser" resultType="entity.User">
-		select * from user_tbl
-	</select>
-
-	<select id="getUserByName" parameterType="String" resultType="entity.User">
-		select * from user_tbl
-		where name like #{name}
-	</select>
-
-	<select id="getUser" parameterType="String" resultType="entity.User">
-		select * from user_tbl where
-		name=#{name}
-	</select>
-
-	<insert id="insertUser" parameterType="entity.User">
-		<selectKey resultType="int" order="BEFORE" keyProperty="id">
-			select user_seq.nextval from dual
-		</selectKey>
-		insert into user_tbl (id,name,age,sex,password)
-		values
-		(#{id},#{name},#{age},#{sex},#{password})
-	</insert>
-
-	<update id="updateUser" parameterType="entity.User">
-		update user_tbl set name = #{name},age =
-		#{age},
-		sex = #{sex},password = #{password} where id = #{id}
-	</update>
-
-	<delete id="deleteUser" parameterType="int">
-		delete from user_tbl where id = #{id}
-	</delete>
+  <select id="getAllUser" resultType="entity.User">
+    select * from user_tbl
+  </select>
+  <select id="getUserByName" parameterType="String" resultType="entity.User">
+    select * from user_tbl
+    where name like #{name}
+  </select>
+  <select id="getUser" parameterType="String" resultType="entity.User">
+    select * from user_tbl where
+    name=#{name}
+  </select>
+  <insert id="insertUser" parameterType="entity.User">
+    <selectKey resultType="int" order="BEFORE" keyProperty="id">
+      select user_seq.nextval from dual
+    </selectKey>
+    insert into user_tbl (id,name,age,sex,password)
+    values
+    (#{id},#{name},#{age},#{sex},#{password})
+  </insert>
+  <update id="updateUser" parameterType="entity.User">
+    update user_tbl set name = #{name},age =
+    #{age},
+    sex = #{sex},password = #{password} where id = #{id}
+  </update>
+  <delete id="deleteUser" parameterType="int">
+    delete from user_tbl where id = #{id}
+  </delete>
 </mapper>
 {% endhighlight %}
 
@@ -146,55 +141,55 @@ public interface UserDao {
 package entity;
 
 public class User {
-	private int id;
-	private String name;
-	private int age;
-	private String sex;
-	private String password;
+  private int id;
+  private String name;
+  private int age;
+  private String sex;
+  private String password;
 
-	public User() {
-		System.out.println("--调用无参数构造方法--");
-	}
-	
-	public int getId() {
-		return id;
-	}
+  public User() {
+    System.out.println("--调用无参数构造方法--");
+  }
+  
+  public int getId() {
+    return id;
+  }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public int getAge() {
-		return age;
-	}
+  public int getAge() {
+    return age;
+  }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+  public void setAge(int age) {
+    this.age = age;
+  }
 
-	public String getSex() {
-		return sex;
-	}
+  public String getSex() {
+    return sex;
+  }
 
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
 
-	public String getPassword() {
-		return password;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }
 {% endhighlight %}
 
@@ -214,72 +209,72 @@ import entity.User;
 
 public class TestUser {
 
-	public void testGetByName() {
-		SqlSession session = MybatisUtil.getSession();
-		List<User> users = session.selectList("getUserByName", "%s%");
-		for (User user : users) {
-			System.out.println(user.getId() + "==" + user.getName());
-		}
-		session.commit();
-		session.close();
-	}
+  public void testGetByName() {
+    SqlSession session = MybatisUtil.getSession();
+    List<User> users = session.selectList("getUserByName", "%s%");
+    for (User user : users) {
+      System.out.println(user.getId() + "==" + user.getName());
+    }
+    session.commit();
+    session.close();
+  }
 
-	public void testGetAll() {
-		SqlSession session = MybatisUtil.getSession();
-		List<User> users = session.selectList("getAllUser");
-		for (User user : users) {
-			System.out.println(user.getId() + "==" + user.getName());
-		}
-		session.commit();
-		session.close();
-	}
+  public void testGetAll() {
+    SqlSession session = MybatisUtil.getSession();
+    List<User> users = session.selectList("getAllUser");
+    for (User user : users) {
+      System.out.println(user.getId() + "==" + user.getName());
+    }
+    session.commit();
+    session.close();
+  }
 
-	public void testGet() {
-		SqlSession session = MybatisUtil.getSession();
-		UserDao userDao = session.getMapper(UserDao.class);
-		User user = userDao.getUser("zs");
-		System.out.println(user.getId() + "==" + user.getName());
-		session.commit();
-		session.close();
-	}
+  public void testGet() {
+    SqlSession session = MybatisUtil.getSession();
+    UserDao userDao = session.getMapper(UserDao.class);
+    User user = userDao.getUser("zs");
+    System.out.println(user.getId() + "==" + user.getName());
+    session.commit();
+    session.close();
+  }
 
-	@Test
-	public void testAdd() {
-		SqlSession session = MybatisUtil.getSession();
-		UserDao userDao = session.getMapper(UserDao.class);
-		User user = new User();
-		// user.setId(10);
-		user.setName("zs");
-		user.setPassword("zs");
-		user.setAge(20);
-		user.setSex("女");
-		try {
-			userDao.insertUser(user);
-			System.out.println("id:" + user.getId());
-			// session.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// session.close();
-	}
+  @Test
+  public void testAdd() {
+    SqlSession session = MybatisUtil.getSession();
+    UserDao userDao = session.getMapper(UserDao.class);
+    User user = new User();
+    // user.setId(10);
+    user.setName("zs");
+    user.setPassword("zs");
+    user.setAge(20);
+    user.setSex("女");
+    try {
+      userDao.insertUser(user);
+      System.out.println("id:" + user.getId());
+      // session.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    // session.close();
+  }
 
-	public void testUpdate() {
-		SqlSession session = MybatisUtil.getSession();
-		UserDao userDao = session.getMapper(UserDao.class);
-		User user = userDao.getUser("sb");
-		user.setName("sa");
-		user.setAge(19);
-		userDao.updateUser(user);
-		session.commit();
-		session.close();
-	}
+  public void testUpdate() {
+    SqlSession session = MybatisUtil.getSession();
+    UserDao userDao = session.getMapper(UserDao.class);
+    User user = userDao.getUser("sb");
+    user.setName("sa");
+    user.setAge(19);
+    userDao.updateUser(user);
+    session.commit();
+    session.close();
+  }
 
-	public void testDelete() {
-		SqlSession session = MybatisUtil.getSession();
-		UserDao userDao = session.getMapper(UserDao.class);
-		userDao.deleteUser(1001);
-		session.commit();
-		session.close();
-	}
+  public void testDelete() {
+    SqlSession session = MybatisUtil.getSession();
+    UserDao userDao = session.getMapper(UserDao.class);
+    userDao.deleteUser(1001);
+    session.commit();
+    session.close();
+  }
 }
 {% endhighlight %}

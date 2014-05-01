@@ -2,12 +2,12 @@
 layout: post
 title: 八皇后问题求解算法
 date: 2012-07-10 19:41:00
-categories: java
+categories: algorithm
 ---
 
 求解N皇后问题，用一个N位的N进制数表示棋盘上皇后的位置。
 
-{% highlight ruby %}
+<pre><code>
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -126,4 +126,4 @@ public class Queen {
 		}
 	}
 }
-{% endhighlight %}
+</pre></code>

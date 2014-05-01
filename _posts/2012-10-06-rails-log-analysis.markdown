@@ -2,19 +2,18 @@
 layout: post
 title: Rails日志分析-将日志导出为csv
 date: 2012-10-06 10:28:00
-categories: rails
+categories: ruby
 ---
 
 众所周知，Rails的日志文件是文本类型的，如果要对日志文件进行分析时，比如延迟分析，不能像看图表一样直观。
 
 我们可以先将日志文件转换为excel格式的xls、csv文件，然后转换成图表格式。Ruby代码如下：
 
-{% highlight ruby %}
+<pre><code>
 require "csv.rb"
 
 log_file_path = "production.log"
-# csv_file_path = log_file_path.match('(\w+)\.log')[1] + ".csv"
-csv_file_path = "log.csv"
+csv_file_path = log_file_path.match('(\w+)\.log')[1] + ".csv"
 
 puts "limit response time(default 0ms):"
 (limit_response_time = gets.to_i) >= 0 ? limit_response_time : 0
@@ -84,4 +83,4 @@ CSV.open(csv_file_path, "wb:gbk") do |csv|
 		end 
 	end
 end
-{% endhighlight %}
+</pre></code>
