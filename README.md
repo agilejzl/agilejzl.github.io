@@ -1,4 +1,4 @@
 agilejzl.github.io
 ====
 
-agilejzl的个人博客
+AgileJzl的个人博客

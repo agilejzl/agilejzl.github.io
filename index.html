@@ -1,13 +1,17 @@
 ---
 layout: default
-title: 蒋志龙博客
+title: AgileJzl's Blog
 ---
 
 <div id="home">
-  <h1>目录列表</h1>
+  <h3>目录列表</h3>
   <ul class="posts">
     {% for category in site.categories %}
-		<li><a href="/{{ category | first }}.html">{{ category | first }}({{ category | last | size }})</a></li>
-	{% endfor %}
+    <li>
+      <a href="/{{ category | first }}.html">
+        {{ category | first }}({{ category | last | size }})
+      </a>
+    </li>
+    {% endfor %}
   </ul>
 </div>
