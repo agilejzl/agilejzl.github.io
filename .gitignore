@@ -18,6 +18,6 @@ _yardoc
 doc/
 _site/
 
-assets/css/.sass-cache
+assets/css/.sass-cache/
 assets/css/main.scss
 .DS_Store

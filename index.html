@@ -7,11 +7,22 @@ title: AgileJzl's Blog
   <h3>目录列表</h3>
   <ul class="posts">
     {% for category in site.categories %}
-    <li>
-      <a href="/{{ category | first }}.html">
-        {{ category | first }}({{ category | last | size }})
-      </a>
-    </li>
+      <li>
+        <a href="/{{ category | first }}.html">
+          {{ category | first }}({{ category | last | size }})
+        </a>
+      </li>
+      
+      {% for post in category.last %}
+        <ul>
+          <li>
+            <span>{{ post.date | date_to_string }}</span> &raquo; 
+            <a href="{{ post.url }}">
+              {{ post.title }}
+            </a>
+          </li>
+        </ul>
+      {% endfor %}
     {% endfor %}
   </ul>
 </div>

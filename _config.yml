@@ -3,3 +3,5 @@ markdown: rdiscount
 username: AgileJzl
 useremail: agilejzl@gmail.com
 blogtitle: AgileJzl's Blog
+assets_js: /assets/js
+assets_css: /assets/css
