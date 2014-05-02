@@ -44,13 +44,26 @@
     <div class="row-fluid">
       <!-- left_sidebar -->
       <div class="span3 left-nav">
-        <div class="content">
-          <h2>
-            做自己喜欢的事
-          </h2>
+        <div class="row-fluid content">
+          <h2>做自己喜欢的事</h2>
           <a href="/">
             <img class="my_photo" src="/assets/img/my_photo.jpg" alt="{{site.username}}">
           </a>
+        </div>
+
+        <div class="row-fluid newer_posts">
+          <h3 class="">最近的文章</h3>
+          <ul class="posts">
+            {% for post in site.categories['newest'] %}
+              <li>
+                <span>{{ post.date | date: "%Y/%m/%d" }}</span>
+                 &raquo; 
+                <a href="{{ post.url }}">
+                  {{ post.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
 
