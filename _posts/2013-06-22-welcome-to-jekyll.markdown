@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Welcome to Jekyll!
+title: 欢迎使用Jekyll搭建博客
 date: 2013-06-22 00:58:00
 categories: newest
 ---

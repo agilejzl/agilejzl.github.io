@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Html5新特性-Notifications入门
+title: Html5 Notifications例子
 date: 2012-09-03 17:27:00
 categories: frontend
 ---
