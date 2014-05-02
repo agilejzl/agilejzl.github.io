@@ -3,11 +3,12 @@ layout: default
 ---
 <h2>{{ page.title }}</h2>
 <p>
-  <div class="meta">日期：{{ page.date | date: "%Y-%m-%d" }}
+  <div class="meta">
+  	日期: {{ page.date | date: "%Y-%m-%d" }}
     <div class="pull-right">
-      分类：
+      分类: 
       {% for category in page.categories %}
-        {{ category }} 
+        {{ category | capitalize }} 
       {% endfor %}
     </div>
   </div>

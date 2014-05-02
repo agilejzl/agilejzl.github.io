@@ -2,7 +2,7 @@
 layout: post
 title: 欢迎使用Jekyll搭建博客
 date: 2013-06-22 00:58:00
-categories: newest
+categories: other
 ---
 
 You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!

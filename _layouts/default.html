@@ -29,7 +29,7 @@
 
                 <ul class="nav pull-right">
                   <li>
-                    <a href="about.html">关于</a>
+                    <a target="_blank" href="{{site.aboutsite}}">关于</a>
                   </li>
                   <li class="divider-vertical">
                   </li>
@@ -45,14 +45,19 @@
       <!-- left_sidebar -->
       <div class="span3 left-nav">
         <div class="row-fluid content">
-          <h2>做自己喜欢的事</h2>
-          <a href="/">
+          <h2>{{site.blogmotto}}</h2>
+          <a target="_blank" href="{{site.aboutsite}}">
             <img class="my_photo" src="/assets/img/my_photo.jpg" alt="{{site.username}}">
           </a>
+          <div class="row-fluid">
+            At ShangHai, Since 2014.
+          </div>
         </div>
 
         <div class="row-fluid newer_posts">
-          <h3 class="">最近的文章</h3>
+          <div class="row-fluid">
+            <h3 class="">最近的文章</h3>
+          </div>
           <ul class="posts">
             {% for post in site.categories['newest'] %}
               <li>
@@ -82,10 +87,8 @@
           <div class="contact">
             <p>
               Copyright ©2014<br />
-              <address>
-                <strong>{{site.username}}</strong> - 
-                <a href="mailto:{{site.username}}">{{site.useremail}}</a>
-              </address>
+              Feel free to 
+              <a href="mailto:{{site.useremail}}">contact me</a>.
             </p>
           </div>
         </div>
