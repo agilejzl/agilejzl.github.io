@@ -2,7 +2,7 @@
 layout: post
 title: MD5验证和DES加密算法
 date: 2012-06-16 23:39:00
-categories: algorithm
+categories: other
 ---
 
 MD5加密生成的密钥是固定的32位，而Base64加密和DES加密，生成的密钥不是固定。

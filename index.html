@@ -6,10 +6,12 @@ title: AgileJzl's Blog
 <div id="home">
   <h3>目录列表</h3>
   <ul class="posts">
-    {% for category in site.categories %}
+  {% for category in site.categories %}
+    {% assign cname = category | first | tags | capitalize %}
+    {% unless cname == 'Newest' %}
       <li>
         <a href="/{{ category | first }}.html">
-          {{ category | first }}({{ category | last | size }})
+          {{ cname }}({{ category | last | size }})
         </a>
       </li>
       
@@ -23,6 +25,7 @@ title: AgileJzl's Blog
           </li>
         </ul>
       {% endfor %}
-    {% endfor %}
+    {% endunless %}
+  {% endfor %}
   </ul>
 </div>

@@ -5,7 +5,7 @@ layout: default
 <div id="home">
   <h1>{{ page.hero_title }}</h1>
   <ul class="posts">
-    分类：{{ page.name }}<br>
+    分类：{{ page.name | capitalize }}<br>
     文章数：{{ site.categories[page.name] | size }}<br>
     {% for post in site.categories[page.name] %}
       <li>

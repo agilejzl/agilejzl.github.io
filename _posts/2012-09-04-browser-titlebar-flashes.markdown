@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JS特效-浏览器标题栏闪烁
+title: JS实现浏览器标题栏闪烁
 date: 2012-09-04 18:36:00
 categories: frontend
 ---

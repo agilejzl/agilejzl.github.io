@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Backbone标准例子——通讯录
+title: Backbone.js通讯录例子
 date: 2013-04-15 20:09:00
-categories: frontend
+categories: [newest, frontend]
 ---
 
 通讯录，一个基于Backbone的经典例子。
