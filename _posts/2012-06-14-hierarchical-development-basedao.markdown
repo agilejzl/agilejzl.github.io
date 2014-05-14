@@ -9,7 +9,7 @@ categories: java
 
 1.BaseDao代码如下：
 
-<pre><code>
+{% highlight ruby %}
 package dao;
 
 import java.lang.reflect.Field;
@@ -196,11 +196,11 @@ public class BaseDao {
 		return 0;
 	}
 }
-</pre></code>
+{% endhighlight %}
 
 2.连接数据库的DbHelper工具类
 
-<pre><code>
+{% highlight ruby %}
 package utils;
 
 import java.sql.Connection;
@@ -260,11 +260,11 @@ public class DbHelper {
 	}
 
 }
-</pre></code>
+{% endhighlight %}
 
 3.接下来就可以测试BaseDao了。用于测试的User实体类：
 
-<pre><code>
+{% highlight ruby %}
 package entity;
 
 import java.sql.Date;
@@ -326,11 +326,11 @@ public class User {
 	}
 
 }
-</pre></code>
+{% endhighlight %}
 
 4.用于测试的UserDao：
 
-<pre><code>
+{% highlight ruby %}
 package dao;
 
 import java.util.List;
@@ -380,11 +380,11 @@ public class UserDao extends BaseDao {
 		return super.getCount("select count(*) from tbl_user");
 	}
 }
-</pre></code>
+{% endhighlight %}
 
 5.用于测试UserDao的测试类：
 
-<pre><code>
+{% highlight ruby %}
 package test;
 
 import java.sql.Date;
@@ -443,11 +443,11 @@ public class UserDaoTest {
 		return userDao.getUserCount();
 	}
 }
-</pre></code>
+{% endhighlight %}
 
 6.创建用于测试的数据库表：
 
-<pre><code>
+{% highlight ruby %}
 --创建测试表
 create table tbl_user
 (
@@ -458,4 +458,4 @@ create table tbl_user
 );
 
 create sequence seq_user;
-</pre></code>
+{% endhighlight %}

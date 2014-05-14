@@ -13,7 +13,7 @@ MD5加密生成的密钥是固定的32位，而Base64加密和DES加密，生成
 
 1.MD5加密工具类
 
-<pre><code>
+{% highlight ruby %}
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -42,11 +42,11 @@ public class Md5Util {
 		return StrConvertUtil.byteArrToHexStr(md);
 	}
 }
-</pre></code>
+{% endhighlight %}
 
 2.DES加密工具类
 
-<pre><code>
+{% highlight ruby %}
 import java.security.Key;
 import java.security.Security;
 
@@ -148,11 +148,11 @@ public class DesUtil {
 	}
 
 }
-</pre></code>
+{% endhighlight %}
 
 3.字符串转换工具类
 
-<pre><code>
+{% highlight ruby %}
 /**
  * 字符串转换工具类
  * 
@@ -205,11 +205,11 @@ public class StrConvertUtil {
 	}
 
 }
-</pre></code>
+{% endhighlight %}
 
 4.最后当然是测试类咯
 
-<pre><code>
+{% highlight ruby %}
 public class Test {
 	public static void main(String[] args) {
 		try {
@@ -227,13 +227,13 @@ public class Test {
 		}
 	}
 }
-</pre></code>
+{% endhighlight %}
 
 5.测试结果输出
 
-<pre><code>
+{% highlight ruby %}
 DES加密前的字符：需要进行加密的字符串，长度：10
 DES加密后的字符：d50ef6bf3e3e51585297c0120f76a65f9d52d38e4cf5f47946124a1b8488e3b9，长度：64
 DES解密后的字符：需要进行加密的字符串，长度：10
 MD5加密后的字符：842913073af5f2555c1042832eba999f，长度：32
-</pre></code>
+{% endhighlight %}

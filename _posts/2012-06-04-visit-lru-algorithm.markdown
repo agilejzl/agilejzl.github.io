@@ -7,7 +7,7 @@ categories: algorithm
 
 主存访问LRU模拟算法，练手。
 
-<pre><code>
+{% highlight ruby %}
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -94,4 +94,4 @@ public class LRU {
 		System.out.println();
 	}
 }
-</pre></code>
+{% endhighlight %}

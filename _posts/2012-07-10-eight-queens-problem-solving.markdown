@@ -7,7 +7,7 @@ categories: algorithm
 
 求解N皇后问题，用一个N位的N进制数表示棋盘上皇后的位置。
 
-<pre><code>
+{% highlight ruby %}
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -126,4 +126,4 @@ public class Queen {
 		}
 	}
 }
-</pre></code>
+{% endhighlight %}

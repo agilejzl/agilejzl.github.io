@@ -7,7 +7,7 @@ categories: java
 
 快速判定素数，用素数判定素数。
 
-<pre><code>
+{% highlight ruby %}
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -83,4 +83,4 @@ public class Prime {
 		return true;
 	}
 }
-</pre></code>
+{% endhighlight %}

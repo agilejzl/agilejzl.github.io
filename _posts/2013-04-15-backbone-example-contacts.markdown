@@ -80,7 +80,7 @@ Html代码如下：
 
 Backbone代码如下：
 
-<pre><code>
+{% highlight ruby %}
 (function($) {
   $(document).ready(function() {
     var Contact = Backbone.Model.extend({
@@ -386,6 +386,6 @@ Backbone代码如下：
     Backbone.history.start();
   });
 })(jQuery);
-</pre></code>
+{% endhighlight %}
 
 [page-in-iteye]: http://z2009zxiaolong.iteye.com/blog/1847833
