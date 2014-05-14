@@ -1,4 +1,4 @@
 agilejzl.github.io
-====
+======================
 
-AgileJzl的个人博客
+Teddy Jiang的个人技术博客
