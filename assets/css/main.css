@@ -44,7 +44,9 @@ ul.posts {
   margin-bottom: 2em; }
 
 ul.posts li {
-  line-height: 1.75em; }
+  display: block;
+  line-height: 1.75em; 
+}
 
 ul.posts span {
   color: #aaa;
