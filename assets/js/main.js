@@ -1,10 +1,4 @@
 
-// code for BaiDu Analytics
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + 
-  "hm.baidu.com/h.js%3F6a07065c341124e299ee12703d1c6ed0' type='text/javascript'%3E%3C/script%3E")
-);
-
 $(function(){
   function set_left_nav() {
     var left_height = $('.left-nav').css('height')
@@ -15,8 +9,17 @@ $(function(){
   }
 
   set_left_nav();
+
+  // async code for BaiDu Analytics
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?6a07065c341124e299ee12703d1c6ed0";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
   
-  // code for Google Analytics
+  // async code for Google Analytics
   (function(i,s,o,g,r,a,m){
     i['GoogleAnalyticsObject']=r;
     i[r]=i[r]||function(){
