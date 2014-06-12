@@ -10,6 +10,11 @@ $(function(){
 
   set_left_nav();
   
+  // code for BaiDu Analytics
+  var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+  document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F6a07065c341124e299ee12703d1c6ed0' type='text/javascript'%3E%3C/script%3E"));
+  
+  // code for Google Analytics
   (function(i,s,o,g,r,a,m){
     i['GoogleAnalyticsObject']=r;
     i[r]=i[r]||function(){
