@@ -1,4 +1,4 @@
-pygments: false
+highlighter: false
 markdown: rdiscount
 username: Teddy
 useremail: agilejzl@gmail.com
