@@ -8,7 +8,9 @@ layout: default
     <div class="pull-right">
       分类: 
       {% for category in page.categories %}
-        {{ category | capitalize }} 
+        {% unless category == 'posts' %}
+          {{ category | capitalize }} 
+        {% endunless %}
       {% endfor %}
     </div>
   </div>
