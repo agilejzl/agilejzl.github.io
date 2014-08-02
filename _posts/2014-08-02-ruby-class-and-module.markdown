@@ -7,6 +7,7 @@ categories: [newest, ruby]
 
 
 ```ruby
+# ruby 2.0.0p195
 Module.class => Class
 Class.class => Class
 
@@ -46,5 +47,5 @@ mims_false = mims.delete_if {|m| oims.include? m }
 mims = Module.instance_methods
 mims_redefined = mims.delete_if {|m| mims_false.include? m } 
 
-# finnaly, why Module extend Object but different with Object?
+# finnaly, why Module inherited Object but different with Object?
 ```

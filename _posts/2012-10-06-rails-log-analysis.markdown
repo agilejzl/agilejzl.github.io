@@ -10,7 +10,7 @@ categories: [newest, ruby]
 我们可以先将日志文件转换为excel格式的xls、csv文件，然后转换成图表格式。  
 Ruby代码如下(Ruby-1.9.3, Rails-3.2.8)：
 
-{% highlight ruby %}
+```ruby
 require "csv.rb"  
 log_file_path = "production.log"
 csv_file_path = log_file_path.match('(\w+)\.log')[1] + ".csv"  
@@ -74,4 +74,4 @@ CSV.open(csv_file_path, "wb:gbk") do |csv|
     end 
   end
 end  
-{% endhighlight %}
+```

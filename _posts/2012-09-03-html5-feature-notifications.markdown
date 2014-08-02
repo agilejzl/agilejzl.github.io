@@ -11,7 +11,7 @@ Chrome内置支持Notifications，Firefox需要安装插件（插件下载地址
 
 一个Notifications使用的小例子，代码如下：
 
-{% highlight ruby %}
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,4 +71,4 @@ Chrome内置支持Notifications，Firefox需要安装插件（插件下载地址
   <button id="show_button" type="button">点我看效果</button>
 </body>
 </html>
-{% endhighlight %}
+```

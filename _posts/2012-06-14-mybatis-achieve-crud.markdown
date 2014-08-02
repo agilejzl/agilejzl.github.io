@@ -9,8 +9,8 @@ categories: java
 
 1.mybatis需要程序员手动建表，用于测试的建表语句如下：
 
-{% highlight ruby %}
---oracle10g
+```sql
+-- oracle10g
 CREATE TABLE user_tbl (
   id int PRIMARY KEY ,
   name varchar2(20),
@@ -21,11 +21,11 @@ CREATE TABLE user_tbl (
 
 create sequence user_seq;
 INSERT INTO user_tbl VALUES (1, 'zs',18, '张三', 'zs');
-{% endhighlight %}
+```
 
 2.连接数据库的工具类：
 
-{% highlight ruby %}
+```java
 package util;
 
 import java.io.IOException;
@@ -71,11 +71,11 @@ public class MybatisUtil {
     }
   }
 }
-{% endhighlight %}
+```
 
 3.UserDao，用于实现对User表的CRUD操作：
 
-{% highlight ruby %}
+```java
 package dao;
 
 import java.util.List;
@@ -95,11 +95,11 @@ public interface UserDao {
   
   public void deleteUser(int id);
 }
-{% endhighlight %}
+```
 
 4.不同于hibernate，mybatis映射文件（这里是UserDao.xml）映射的是Dao层的方法，用于将Dao层的方法与具体的sql语句绑定。
 
-{% highlight ruby %}
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -133,11 +133,11 @@ public interface UserDao {
     delete from user_tbl where id = #{id}
   </delete>
 </mapper>
-{% endhighlight %}
+```
 
 5.实体类User如下：
 
-{% highlight ruby %}
+```java
 package entity;
 
 public class User {
@@ -191,11 +191,11 @@ public class User {
     this.password = password;
   }
 }
-{% endhighlight %}
+```
 
 6.最后就可以测试了，测试类TestUser如下：
 
-{% highlight ruby %}
+```java
 package test;
 
 import java.util.List;
@@ -277,4 +277,4 @@ public class TestUser {
     session.close();
   }
 }
-{% endhighlight %}
+```

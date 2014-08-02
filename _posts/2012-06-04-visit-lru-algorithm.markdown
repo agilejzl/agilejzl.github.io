@@ -7,7 +7,7 @@ categories: algorithm
 
 主存访问LRU模拟算法，练手。
 
-{% highlight ruby %}
+```java
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -16,9 +16,6 @@ import java.util.Set;
  * LRU算法问题：
  * 某虚拟存储器采用页式管理，主存容量为4个页面，使用LRU替换算法，若程序访存的虚页地址流为：
  * 0, 7, 0, 6, 7, 1, 6, 3, 0, 7, 2, 7, 1, 4, 0, 2，计算该程序使用主存实页位置的过程。
- * 
- * @author Jzl
- * 
  */
 public class LRU {
 	private static final int NUM = 4;// 主存容量
@@ -94,4 +91,4 @@ public class LRU {
 		System.out.println();
 	}
 }
-{% endhighlight %}
+```

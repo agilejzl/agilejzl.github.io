@@ -10,7 +10,7 @@ categories: [newest, frontend]
 
 Html代码如下：
 
-{% highlight ruby %}
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,11 +76,11 @@ Html代码如下：
     </div>
   </script>
 </html>
-{% endhighlight %}
+```
 
 Backbone代码如下：
 
-{% highlight ruby %}
+```js
 (function($) {
   $(document).ready(function() {
     var Contact = Backbone.Model.extend({
@@ -386,6 +386,6 @@ Backbone代码如下：
     Backbone.history.start();
   });
 })(jQuery);
-{% endhighlight %}
+```
 
 [page-in-iteye]: http://z2009zxiaolong.iteye.com/blog/1847833

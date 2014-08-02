@@ -7,7 +7,7 @@ categories: algorithm
 
 M*M宫格棋盘求解是否存在N个棋子连在一条线上，比如N=5就是常见的五子棋问题。
 
-{% highlight ruby %}
+```java
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -126,4 +126,4 @@ public class Chess {
     }
   }
 }  
-{% endhighlight %}
+```

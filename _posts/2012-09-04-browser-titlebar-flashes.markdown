@@ -9,7 +9,7 @@ categories: frontend
 
 不废话了，直接贴代码。
 
-{% highlight ruby %}
+```html
 <html>
   <head>
     <title>JS效果-浏览器标题栏闪烁</title>
@@ -58,4 +58,4 @@ categories: frontend
     点击页面取消消息闪烁提示
   </body>
 </html>
-{% endhighlight %}
+```

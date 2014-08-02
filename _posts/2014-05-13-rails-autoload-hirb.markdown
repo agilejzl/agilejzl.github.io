@@ -9,19 +9,22 @@ categories: [newest, ruby]
 遵循懒人原则以及DRY原则 —— Why not do less and effect more! Don't Repeat yourself!   
 在home目录下添加.irbrc文件，运行交互环境(比如irb、rails c等)时会自动运行，内容如下：  
 
-{% highlight ruby %}
+```ruby
 puts "Welcome, #{ENV['USER']}!"  
+
 def class_exists?(str)
   klass = str.split('::').inject(Object) do |mod, class_name|
     mod.const_get(class_name)
   end
+  
   klass.is_a?(Object)
 rescue NameError
   false
 end  
+
 if class_exists?("Rails")
   require 'hirb'
   # Hirb.disable
   Hirb.enable
 end
-{% endhighlight %}
+```
