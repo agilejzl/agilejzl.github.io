@@ -6,9 +6,9 @@ title: Teddy's Blog
 <div id="home">
   <h1>{{ page.hero_title }}</h1>
   <ul class="posts">
-    分类：{{ page.name | capitalize }}<br>
-    文章数：{{ site.categories[page.name] | size }}<br>
-    {% for post in site.categories[page.name] %}
+    分类：{{ page.category | capitalize }}<br>
+    文章数：{{ site.categories[page.category] | size }}<br>
+    {% for post in site.categories[page.category] %}
       <li>
         <span>{{ post.date | date: "%Y-%m-%d" }}</span> &raquo; 
         <a href="{{ post.url }}">
