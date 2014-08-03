@@ -1,10 +1,12 @@
 highlighter: false
 markdown: rdiscount
+
 username: Teddy
 useremail: agilejzl@gmail.com
-blogtitle: Teddy's Blog
-aboutsite: https://github.com/agilejzl
-blogmotto: 追求优美的风格
 
 assets_js: /assets/js
 assets_css: /assets/css
+
+blogtitle: Teddy's Blog
+blogmotto: 追求优美的风格
+aboutsite: https://github.com/agilejzl

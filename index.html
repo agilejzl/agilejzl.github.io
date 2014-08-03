@@ -5,27 +5,40 @@ title: Teddy's Blog
 
 <div id="home">
   <h3>目录列表</h3>
-  <ul class="posts">
+  <ul class="posts sorted">
+  </ul>
+
+  <ul class="posts main">
   {% for category in site.categories %}
     {% assign cname = category | first | tags %}
     {% unless cname == 'newest' or cname == 'posts' %}
-      <li>
+      <li class="category {{cname}}">
         <a href="categories/{{ category | first }}.html">
           {{ cname | capitalize }}({{ category | last | size }})
         </a>
-      </li>
-      
-      {% for post in category.last %}
+
         <ul>
-          <li>
-            <span>{{ post.date | date: "%Y-%m-%d" }}</span> &raquo; 
-            <a href="{{ post.url }}">
-              {{ post.title }}
-            </a>
-          </li>
+          {% for post in category.last %}
+            <li>
+              <span>{{ post.date | date: "%Y-%m-%d" }}</span> &raquo; 
+              <a href="{{ post.url }}">
+                {{ post.title }}
+              </a>
+            </li>
+          {% endfor %}
         </ul>
-      {% endfor %}
+      </li>
     {% endunless %}
   {% endfor %}
   </ul>
 </div>
+
+<script type="text/javascript">
+  $(function(){
+    // define category list order
+    var cnames = ['ruby', 'algorithm', 'frontend', 'java', 'other'];
+    _.each(cnames, function(name){
+      $('.posts.main>li.' + name).appendTo($('.posts.sorted'));
+    });
+  })
+</script>
