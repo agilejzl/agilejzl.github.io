@@ -13,7 +13,7 @@ title: Teddy's Blog
     {% assign cname = category | first | tags %}
     {% unless cname == 'newest' or cname == 'posts' %}
       <li class="category {{cname}}">
-        <a href="categories/{{ category | first }}.html">
+        <a href="{{ site.categories_path }}/{{ category | first }}.html">
           {{ cname | capitalize }}({{ category | last | size }})
         </a>
 

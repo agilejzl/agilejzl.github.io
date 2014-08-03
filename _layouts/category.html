@@ -4,11 +4,15 @@ title: Teddy's Blog
 ---
 
 <div id="home">
-  <h1>{{ page.hero_title }}</h1>
+  <h3>{{ page.category | capitalize }} &raquo; {{ page.hero_title }}</h3>
   <ul class="posts">
-    分类：{{ page.category | capitalize }}<br>
+    分类: 
+    <a href="{{ site.categories_path }}/{{ page.category }}.html">
+      {{ page.category | capitalize }}
+    </a>
+    <br>
     {% assign cname = site.categories[page.category] %}
-    文章数：{{ cname | size }}<br>
+    文章数: {{ cname | size }}<br>
     {% for post in cname %}
       <li>
         <span>{{ post.date | date: "%Y-%m-%d" }}</span> &raquo; 

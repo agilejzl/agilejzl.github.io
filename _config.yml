@@ -6,6 +6,7 @@ useremail: agilejzl@gmail.com
 
 assets_js: /assets/js
 assets_css: /assets/css
+categories_path: /categories
 
 blogtitle: Teddy's Blog
 blogmotto: 追求优美的风格
