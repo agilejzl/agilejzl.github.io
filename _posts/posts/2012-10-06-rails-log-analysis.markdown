@@ -2,7 +2,7 @@
 layout: post
 title: Rails日志导出CSV分析
 date: 2012-10-06 10:28:00
-categories: [newest, ruby]
+categories: [newest, rails]
 ---
 
 众所周知，Rails的日志文件是文本类型的，如果要对日志文件进行分析时，比如延迟分析，不能像看图表一样直观。

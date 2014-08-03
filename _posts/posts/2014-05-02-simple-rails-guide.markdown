@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 简明Ruby入门进阶指南
+title: Ruby on Rails入门与进阶
 date: 2014-05-02 14:48:00
-categories: [newest, ruby]
+categories: [newest, rails]
 ---
 
 Ruby

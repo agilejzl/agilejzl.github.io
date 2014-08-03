@@ -2,7 +2,7 @@
 layout: post
 title: Rails项目自动Hirb.enable
 date: 2014-05-13 21:48:00
-categories: [newest, ruby]
+categories: [newest, rails]
 ---
 
 在Rails项目中Hirb是经常使用的，然而每次都要手动'Hirb.enable'，敲多了自然就烦了。  
