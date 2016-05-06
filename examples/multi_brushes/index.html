@@ -17,28 +17,30 @@
 </head>
 
 <body>
-  <canvas id="__canvas_0" width="50" height="50" class="canvas_block hidden">
+  <!-- tmp drawed point -->
+  <canvas id="__canvas_0" width="50" height="50" class="canvas_block">
     您的浏览器不支持canvas！
   </canvas>
+  <!-- tmp drawed line -->
   <canvas id="__canvas_1" width="470" height="780" class="canvas_block hidden">
     您的浏览器不支持canvas！
   </canvas>
   <!-- for the finnal result -->
-  <canvas id="__canvas3" width="470" height="780" class="canvas_block">
+  <canvas id="__canvas3" width="470" height="780" class="canvas_block hidden">
     您的浏览器不支持canvas！
   </canvas>
-  <!-- for LinePoints -->
-  <canvas id="__canvas1" width="470" height="780" class="canvas_block hidden">
+  <!-- tmp drawed LinePoints -->
+  <canvas id="__canvas1" width="470" height="780" class="canvas_block ">
     您的浏览器不支持canvas！
   </canvas>
-  <!-- for subLinePoints -->
+  <!-- tmp drawed subLinePoints -->
   <canvas id="__canvas2" width="470" height="780" class="canvas_block hidden">
     您的浏览器不支持canvas！
   </canvas>
   <script type="text/javascript">
   $(function() {
-    var __canvas_0 = document.getElementById('__canvas_0'); // tmp canvas
-    var __canvas_1 = document.getElementById('__canvas_1'); // tmp canvas
+    var __canvas_0 = document.getElementById('__canvas_0');
+    var __canvas_1 = document.getElementById('__canvas_1');
     var __canvas1 = document.getElementById('__canvas1');
     var __canvas2 = document.getElementById('__canvas2');
     var __canvas3 = document.getElementById('__canvas3');
@@ -52,30 +54,30 @@
       var __ctx2 = __canvas2.getContext('2d');
       var __ctx3 = __canvas3.getContext('2d');
 
-      function __drawShape(image, ctx, point, y) {
+      function __drawPointShape(image, ctx, point, y) {
         var x_flip = (point.Flip[0] === false ? -1 : 1);
         var y_flip = (point.Flip[1] === false ? -1 : 1);
         ctx.scale(x_flip, y_flip);
 
         var roundness = point.Roundness * 0.9 + 0.1;
         ctx.translate(__canvas_0.width / 2, __canvas_0.height / 2);
-        ctx.rotate(-point.radian);
+        ctx.rotate(-point.Radian);
         ctx.drawImage(image, 0, 0, image.width, image.height, -point.Size / 2, -point.Size * roundness / 2, point.Size, point.Size * roundness);
       }
 
-      function __drawColor(ctx, point, y) {
+      function __drawPointColor(ctx, point, y) {
         ctx.fillStyle = "rgba(" + parseInt(255 * point.Color[0]) + ", " + parseInt(255 * point.Color[1]) + ", " + parseInt(255 * point.Color[2]) + ", " + point.Flow + ")";
         ctx.fillRect(0, 0, __canvas_0.width, __canvas_0.height);
         // ctx.fillRect((__canvas_0.width-point.Size) / 2, (__canvas_0.height-point.Size) / 2, point.Size, point.Size);
       }
 
       function __drawLinePoint(image, ctx, point, y) {
-        // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.save();
 
-        __drawColor(ctx, point, y);
+        __drawPointColor(ctx, point, y);
         ctx.globalCompositeOperation = "destination-in";
-        __drawShape(image, ctx, point, y);
+        __drawPointShape(image, ctx, point, y);
 
         ctx.restore();
       }
@@ -83,8 +85,8 @@
       function __initCanvas() {
         var canvas_width = 960;
         var canvas_height = 1280;
-        __canvas_0.setAttribute("width", 50);
-        __canvas_0.setAttribute("height", 50);
+        __canvas_0.setAttribute("width", 70*Math.sqrt(2));
+        __canvas_0.setAttribute("height", 70*Math.sqrt(2));
         __canvas_1.setAttribute("width", canvas_width);
         __canvas_1.setAttribute("height", canvas_height);
         __canvas1.setAttribute("width", canvas_width);
@@ -95,35 +97,37 @@
         __canvas3.setAttribute("height", canvas_height);
       }
 
-      function __initBrushs() {
-        brushs = [
-          [0, 1, 2, 3, 4],
-          [0],
-          [0],
-          [0, 1],
-          [0, 1]
+      function __initBrushes() {
+        brushes = [
+          [[0, 1, 2, 3, 4], []],
+          [[0], []],
+          [[0], []],
+          [[0], [0]],
+          [[0], [0]]
         ];
         images = [
-          [],
-          [],
-          [],
-          [],
-          []
+          [[], []],
+          [[], []],
+          [[], []],
+          [[], []],
+          [[], []]
         ];
 
-        _.each(brushs, function(brushList, Listindex) {
-          _.each(brushList, function(brush, index) {
-            brushs[Listindex][index] = "../../brushs/" + Listindex + "/" + index + ".png";
-            var image = new Image();
+        _.each(brushes, function(brushesLV1, indexLV1) {
+          _.each(brushesLV1, function(brushesLV2, indexLV2) {
+            _.each(brushesLV2, function(brushesLV3, indexLV3) {
+              brushes[indexLV1][indexLV2][indexLV3] = "../../brushes/" + indexLV1 + "/" + indexLV2 + "/" + indexLV3 + ".png";
+              var image = new Image();
 
-            image.onload = function() {
-              if (Listindex === brushs.length - 1 && index === brushList.length - 1) {
-                console.log("Loaded last brush " + images[Listindex][index].src);
-                drawMultiLines();
+              image.onload = function() {
+                if (indexLV1 === brushes.length - 1 && indexLV2 === brushesLV1.length - 1 && indexLV3 == brushesLV2.length - 1) {
+                  console.log("Loaded last brush " + images[indexLV1][indexLV2][indexLV3].src);
+                  drawMultiLines();
+                }
               }
-            }
-            image.src = brushs[Listindex][index];
-            images[Listindex][index] = image;
+              image.src = brushes[indexLV1][indexLV2][indexLV3];
+              images[indexLV1][indexLV2][indexLV3] = image;
+            });
           });
         });
       }
@@ -134,56 +138,65 @@
         ctx.globalAlpha = points.Opacity;
 
         _.each(points.LinePoints, function(point, index) {
-          if (point.TextureIndex >= images[brush_index].length) {
-            point.TextureIndex = 0;
-          }
-          var image1 = images[brush_index][point.TextureIndex];
-          var offset_x = point.Position[0] - __canvas_0.width / 2;
-          var offset_y = point.Position[1] - y - __canvas_0.height / 2;
+          setTimeout(function(){
+            point.Size = Math.ceil(point.Size);
+            var image1 = images[brush_index][0][point.TextureIndex];
+            var offset_x = point.Position[0] - __canvas_0.width / 2;
+            var offset_y = point.Position[1] - y - __canvas_0.height / 2;
 
-          __drawLinePoint(image1, ctx, point, y)
-          __ctx1.drawImage(ctx.canvas, (__canvas_0.width - point.Size) / 2, (__canvas_0.height - point.Size) / 2, point.Size, point.Size, point.Position[0], point.Position[1] - y, point.Size, point.Size);
+            __drawLinePoint(image1, ctx, point, y)
+            // __ctx1.drawImage(ctx.canvas, (__canvas_0.width - point.Size) / 2, (__canvas_0.height - point.Size) / 2, point.Size, point.Size, point.Position[0] - point.Size/2, point.Position[1] - y - point.Size/2, point.Size, point.Size);
+            __ctx1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
+          }, 20);
         });
         __ctx_1.drawImage(__ctx1.canvas, 0, 0);
 
         // draw subline
         if (points.UseSubLine) {
           ctx.globalAlpha = 1;
+          console.log("Using subline " + points.BrushType);
           _.each(points.SublinePoints, function(point, index) {
-            if (point.TextureIndex >= images[brush_index].length) {
-              point.TextureIndex = 0;
-            }
-            var image2 = images[brush_index][point.TextureIndex];
+            point.Size = Math.ceil(point.Size);
+            var image2 = images[brush_index][1][point.TextureIndex];
             var offset_x = point.Position[0] - __canvas_0.width / 2;
             var offset_y = point.Position[1] - y - __canvas_0.height / 2;
 
             __drawLinePoint(image2, ctx, point, y)
-              // __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, offset_x, offset_y, __canvas_0.width, __canvas_0.height);
-            __ctx2.drawImage(ctx.canvas, (__canvas_0.width - point.Size) / 2, (__canvas_0.height - point.Size) / 2, point.Size, point.Size, point.Position[0], point.Position[1] - y, point.Size, point.Size);
+            // __ctx2.drawImage(ctx.canvas, (__canvas_0.width - point.Size) / 2, (__canvas_0.height - point.Size) / 2, point.Size, point.Size, point.Position[0] - point.Size/2, point.Position[1] - y - point.Size/2, point.Size, point.Size);
+            __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
           });
 
           __ctx_1.globalCompositeOperation = "source-in";
           __ctx_1.drawImage(__ctx2.canvas, 0, 0);
         }
+
+        __ctx3.drawImage(__ctx_1.canvas, 0, 0);
       }
 
       // the entrance
       function drawMultiLines() {
         __ctx3.globalCompositeOperation = "source-over";
         _.each(datas, function(line, index) {
-          console.log("Using brush " + line.BrushType);
-          __ctx_1.clearRect(0, 0, __ctx_1.canvas.width, __ctx_1.canvas.height);
-          __ctx_1.save();
+          // setTimeout(function(){
+            // console.log("Using brush " + line.BrushType);
+            __ctx_1.clearRect(0, 0, __ctx_1.canvas.width, __ctx_1.canvas.height);
+            __ctx1.clearRect(0, 0, __ctx1.canvas.width, __ctx1.canvas.height);
+            __ctx2.clearRect(0, 0, __ctx2.canvas.width, __ctx2.canvas.height);
+            __ctx_1.save();
+            __ctx1.save();
+            __ctx2.save();
 
-          startDrawLine(line.BrushType, line);
-          __ctx3.drawImage(__ctx_1.canvas, 0, 0);
+            startDrawLine(line.BrushType, line);
 
-          __ctx_1.restore();
+            __ctx_1.restore();
+            __ctx1.restore();
+            __ctx2.restore();
+          // }, 10);
         });
       }
 
       __initCanvas();
-      __initBrushs();
+      __initBrushes();
     }
   });
   </script>
