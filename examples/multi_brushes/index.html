@@ -18,7 +18,7 @@
 
 <body>
   <!-- tmp drawed point -->
-  <canvas id="__canvas_0" width="50" height="50" class="canvas_block">
+  <canvas id="__canvas_0" width="100" height="100" class="canvas_block hidden">
     您的浏览器不支持canvas！
   </canvas>
   <!-- tmp drawed line -->
@@ -26,7 +26,7 @@
     您的浏览器不支持canvas！
   </canvas>
   <!-- for the finnal result -->
-  <canvas id="__canvas3" width="470" height="780" class="canvas_block hidden">
+  <canvas id="__canvas3" width="470" height="780" class="canvas_block ">
     您的浏览器不支持canvas！
   </canvas>
   <!-- tmp drawed LinePoints -->
@@ -34,7 +34,7 @@
     您的浏览器不支持canvas！
   </canvas>
   <!-- tmp drawed subLinePoints -->
-  <canvas id="__canvas2" width="470" height="780" class="canvas_block hidden">
+  <canvas id="__canvas2" width="470" height="780" class="canvas_block ">
     您的浏览器不支持canvas！
   </canvas>
   <script type="text/javascript">
@@ -66,7 +66,7 @@
       }
 
       function __drawPointColor(ctx, point, y) {
-        ctx.fillStyle = "rgba(" + parseInt(255 * point.Color[0]) + ", " + parseInt(255 * point.Color[1]) + ", " + parseInt(255 * point.Color[2]) + ", " + point.Flow + ")";
+        ctx.fillStyle = "rgba(" + Math.round(255 * point.Color[0]) + ", " + Math.round(255 * point.Color[1]) + ", " + Math.round(255 * point.Color[2]) + ", " + point.Flow + ")";
         ctx.fillRect(0, 0, __canvas_0.width, __canvas_0.height);
         // ctx.fillRect((__canvas_0.width-point.Size) / 2, (__canvas_0.height-point.Size) / 2, point.Size, point.Size);
       }
@@ -137,26 +137,12 @@
         var ctx = __ctx_0;
         ctx.globalAlpha = points.Opacity;
 
-        _.each(points.LinePoints, function(point, index) {
-          setTimeout(function(){
-            point.Size = Math.ceil(point.Size);
-            var image1 = images[brush_index][0][point.TextureIndex];
-            var offset_x = point.Position[0] - __canvas_0.width / 2;
-            var offset_y = point.Position[1] - y - __canvas_0.height / 2;
-
-            __drawLinePoint(image1, ctx, point, y)
-            // __ctx1.drawImage(ctx.canvas, (__canvas_0.width - point.Size) / 2, (__canvas_0.height - point.Size) / 2, point.Size, point.Size, point.Position[0] - point.Size/2, point.Position[1] - y - point.Size/2, point.Size, point.Size);
-            __ctx1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
-          }, 20);
-        });
-        __ctx_1.drawImage(__ctx1.canvas, 0, 0);
-
         // draw subline
         if (points.UseSubLine) {
           ctx.globalAlpha = 1;
           console.log("Using subline " + points.BrushType);
           _.each(points.SublinePoints, function(point, index) {
-            point.Size = Math.ceil(point.Size);
+            point.Size = Math.round(point.Size);
             var image2 = images[brush_index][1][point.TextureIndex];
             var offset_x = point.Position[0] - __canvas_0.width / 2;
             var offset_y = point.Position[1] - y - __canvas_0.height / 2;
@@ -166,10 +152,23 @@
             __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
           });
 
-          __ctx_1.globalCompositeOperation = "source-in";
           __ctx_1.drawImage(__ctx2.canvas, 0, 0);
+          __ctx_1.globalCompositeOperation = "destination-in";
         }
 
+        _.each(points.LinePoints, function(point, index) {
+          // setTimeout(function(){
+            point.Size = Math.round(point.Size);
+            var image1 = images[brush_index][0][point.TextureIndex];
+            var offset_x = point.Position[0] - __canvas_0.width / 2;
+            var offset_y = point.Position[1] - y - __canvas_0.height / 2;
+
+            __drawLinePoint(image1, ctx, point, y)
+            // __ctx1.drawImage(ctx.canvas, (__canvas_0.width - point.Size) / 2, (__canvas_0.height - point.Size) / 2, point.Size, point.Size, point.Position[0] - point.Size/2, point.Position[1] - y - point.Size/2, point.Size, point.Size);
+            __ctx1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
+          // }, 20);
+        });
+        __ctx_1.drawImage(__ctx1.canvas, 0, 0);
         __ctx3.drawImage(__ctx_1.canvas, 0, 0);
       }
 
@@ -177,21 +176,19 @@
       function drawMultiLines() {
         __ctx3.globalCompositeOperation = "source-over";
         _.each(datas, function(line, index) {
-          // setTimeout(function(){
-            // console.log("Using brush " + line.BrushType);
-            __ctx_1.clearRect(0, 0, __ctx_1.canvas.width, __ctx_1.canvas.height);
-            __ctx1.clearRect(0, 0, __ctx1.canvas.width, __ctx1.canvas.height);
-            __ctx2.clearRect(0, 0, __ctx2.canvas.width, __ctx2.canvas.height);
-            __ctx_1.save();
-            __ctx1.save();
-            __ctx2.save();
+          // console.log("Using brush " + line.BrushType);
+          __ctx_1.clearRect(0, 0, __ctx_1.canvas.width, __ctx_1.canvas.height);
+          __ctx1.clearRect(0, 0, __ctx1.canvas.width, __ctx1.canvas.height);
+          __ctx2.clearRect(0, 0, __ctx2.canvas.width, __ctx2.canvas.height);
+          __ctx_1.save();
+          __ctx1.save();
+          __ctx2.save();
 
-            startDrawLine(line.BrushType, line);
+          startDrawLine(line.BrushType, line);
 
-            __ctx_1.restore();
-            __ctx1.restore();
-            __ctx2.restore();
-          // }, 10);
+          __ctx_1.restore();
+          __ctx1.restore();
+          __ctx2.restore();
         });
       }
 
@@ -201,5 +198,4 @@
   });
   </script>
 </body>
-
 </html>
