@@ -30,11 +30,11 @@
     您的浏览器不支持canvas！
   </canvas>
   <!-- tmp drawed LinePoints -->
-  <canvas id="__canvas1" width="470" height="780" class="canvas_block ">
+  <canvas id="__canvas1" width="470" height="780" class="canvas_block hidden">
     您的浏览器不支持canvas！
   </canvas>
   <!-- tmp drawed subLinePoints -->
-  <canvas id="__canvas2" width="470" height="780" class="canvas_block ">
+  <canvas id="__canvas2" width="470" height="780" class="canvas_block hidden">
     您的浏览器不支持canvas！
   </canvas>
   <script type="text/javascript">
@@ -147,12 +147,9 @@
         ctx.globalAlpha = points.Opacity;
         __ctx3.globalCompositeOperation = "source-over";
 
-
         // draw subline
         if (points.UseSubLine) {
-        // if (false) {
-          // ctx.globalAlpha = 1;
-          console.log("Using subline " + points.BrushType);
+          // console.log("Using subline " + points.BrushType);
           _.each(points.SublinePoints, function(point, index) {
             point.Size = Math.round(point.Size);
             var image2 = images[brush_index][1][point.TextureIndex];
@@ -160,67 +157,64 @@
             var offset_y = point.Position[1] - y - __canvas_0.height / 2;
 
             __drawLinePoint(image2, ctx, point, y);
-            // __ctx2.drawImage(ctx.canvas, (__canvas_0.width - point.Size) / 2, (__canvas_0.height - point.Size) / 2, point.Size, point.Size, point.Position[0] - point.Size/2, point.Position[1] - y - point.Size/2, point.Size, point.Size);
             __ctx_1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
           });
 
-          // __ctx_1.drawImage(__ctx2.canvas, 0, 0);
-          _.each(points.LinePoints, function(point, index) {
+          _.eachSlice(points.LinePoints, slice_size, function(slice_points, slice_index) {
             setTimeout(function(){
-              point.Size = Math.round(point.Size);
-              var image1 = images[brush_index][0][point.TextureIndex];
-              var offset_x = point.Position[0] - __canvas_0.width / 2;
-              var offset_y = point.Position[1] - y - __canvas_0.height / 2;
+              _.each(slice_points, function(point, index) {
+                point.Size = Math.round(point.Size);
+                var image1 = images[brush_index][0][point.TextureIndex];
+                var offset_x = point.Position[0] - __canvas_0.width / 2;
+                var offset_y = point.Position[1] - y - __canvas_0.height / 2;
 
-              saveContext(__ctx2);
+                saveContext(__ctx2);
 
-              __ctx2.drawImage(__ctx_1.canvas, 0, 0);
-              __ctx2.globalCompositeOperation = "destination-in";
+                __ctx2.drawImage(__ctx_1.canvas, 0, 0);
+                __ctx2.globalCompositeOperation = "destination-in";
 
-              __drawLinePoint(image1, ctx, point, y);
-              // __ctx_1.clearRect(0, 0, __ctx_1.canvas.width, __ctx_1.canvas.height); //
-              __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
+                __drawLinePoint(image1, ctx, point, y);
+                __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
 
-              __ctx3.drawImage(__ctx2.canvas, 0, 0);
+                __ctx3.drawImage(__ctx2.canvas, 0, 0);
 
-              restoreContext(__ctx2);
+                restoreContext(__ctx2);
 
-              if (index === points.LinePoints.length - 1 && line_index < max_line_index) {
-                line_index += 1;
-                iteraDrawLine(line_index);
-              }
-            }, 2*index);
+                if (slice_index + slice_size >= points.LinePoints.length && index === slice_points.length-1 && line_index < max_line_index) {
+                  line_index += 1;
+                  iteraDrawLine(line_index);
+                }
+              });
+            }, 2*(slice_index%slice_size));
           });
           
-          
         } else {
+          _.eachSlice(points.LinePoints, slice_size, function(slice_points, slice_index) {
+            setTimeout(function(){
+              _.each(slice_points, function(point, index) {
+                point.Size = Math.round(point.Size);
+                var image1 = images[brush_index][0][point.TextureIndex];
+                var offset_x = point.Position[0] - __canvas_0.width / 2;
+                var offset_y = point.Position[1] - y - __canvas_0.height / 2;
 
-        // __ctx3.save();
-        _.each(points.LinePoints, function(point, index) {
-          setTimeout(function(){
-            point.Size = Math.round(point.Size);
-            var image1 = images[brush_index][0][point.TextureIndex];
-            var offset_x = point.Position[0] - __canvas_0.width / 2;
-            var offset_y = point.Position[1] - y - __canvas_0.height / 2;
+                __drawLinePoint(image1, ctx, point, y);
+                __ctx1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
 
-            __drawLinePoint(image1, ctx, point, y);
-            __ctx1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
+                __ctx3.drawImage(__ctx1.canvas, 0, 0);
 
-            __ctx3.drawImage(__ctx1.canvas, 0, 0);
-
-            if (index === points.LinePoints.length - 1 && line_index < max_line_index) {
-              line_index += 1;
-              iteraDrawLine(line_index);
-            }
-          }, 2*index);
-        });
-        
-        // __ctx_1.drawImage(__ctx1.canvas, 0, 0);
-        // __ctx3.restore();
+                if (slice_index + slice_size >= points.LinePoints.length && index === slice_points.length-1 && line_index < max_line_index) {
+                  console.log("slice_index " + slice_index, "points " + points.LinePoints.length);
+                  line_index += 1;
+                  iteraDrawLine(line_index);
+                }
+              });
+            }, 2*(slice_index%slice_size));
+          });
         }
       }
 
       function iteraDrawLine(line_index) {
+        console.log("Drawing line " + line_index);
         saveContext(__ctx_1);
         saveContext(__ctx1);
         startDrawLine(datas[line_index].BrushType, datas[line_index]);
@@ -230,24 +224,17 @@
 
       // the entrance
       function drawMultiLines() {
-        // __ctx3.globalCompositeOperation = "source-over";
         // datas = _.select(datas, function(data){return data.UseSubLine});
-        // selected_datas = [datas[8]];
-        // _.each(datas, function(line, index) {
-        //   if (index > 0) {return}
-        //   // setTimeout(function(){
-        //     // console.log("Using brush " + line.BrushType);
-        //     saveContext(__ctx_1);
-
-        //     startDrawLine(line.BrushType, line);
-
-        //     restoreContext(__ctx_1);
-        //   // }, 3000*(index));
-        // });
+        slice_size = 5;
         line_index = 0;
-        max_line_index = datas.length - 1
+        max_line_index = datas.length - 1;
         iteraDrawLine(line_index);
       }
+
+      _.mixin({ "eachSlice": function(obj, size, iterator, context) {
+        for (var i=0, l=obj.length; i < l; i+=size) {
+          iterator.call(context, obj.slice(i,i+size), i, obj);
+        } }});
 
       __initCanvas();
       __initBrushes();
