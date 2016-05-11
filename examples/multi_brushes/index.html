@@ -208,8 +208,13 @@
       }
 
       // the entrance
-      function drawMultiLines() {
+      window.drawMultiLines = function() {
         // datas = _.select(datas, function(data){return data.UseSubLine});
+        saveContext(__ctx_0);
+        saveContext(__ctx_1);
+        saveContext(__ctx1);
+        saveContext(__ctx2);
+        saveContext(__ctx3);
         y = 0;
         slice_size = 15;
         line_index = 0;
