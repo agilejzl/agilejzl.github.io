@@ -85,8 +85,8 @@
       function __initCanvas() {
         var canvas_width = 960;
         var canvas_height = 1280;
-        __canvas_0.setAttribute("width", 70*Math.sqrt(2));
-        __canvas_0.setAttribute("height", 70*Math.sqrt(2));
+        __canvas_0.setAttribute("width", 70 * Math.sqrt(2));
+        __canvas_0.setAttribute("height", 70 * Math.sqrt(2));
         __canvas_1.setAttribute("width", canvas_width);
         __canvas_1.setAttribute("height", canvas_height);
         __canvas1.setAttribute("width", canvas_width);
@@ -154,9 +154,9 @@
                 saveContext(__ctx2);
               }
               __drawLinePoint(image1, ctx, point, y);
-              __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
+              __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width / 2, point.Position[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
 
-              if (index === slice_points.length-1) {
+              if (index === slice_points.length - 1) {
                 if (useSubLine) {
                   __ctx2.globalCompositeOperation = "source-in";
                   __ctx2.drawImage(__ctx_1.canvas, 0, 0);
@@ -171,7 +171,7 @@
                 }
               }
             });
-          }, 2*(slice_index%slice_size));
+          }, 2 * (slice_index % slice_size));
         });
       }
 
@@ -190,7 +190,7 @@
             var offset_y = point.Position[1] - y - __canvas_0.height / 2;
 
             __drawLinePoint(image2, ctx, point, y);
-            __ctx_1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width/2, point.Position[1] - y - __canvas_0.height/2, __canvas_0.width, __canvas_0.height);
+            __ctx_1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width / 2, point.Position[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
           });
           drawSlicePoints(points, brush_index, ctx, points.UseSubLine);
         } else {
@@ -198,11 +198,17 @@
         }
       }
 
-      function iteraDrawLine(line_index) {
-        console.log("Drawing line " + line_index);
+      function iteraDrawLine(index) {
+        console.log("Drawing line " + index);
+        line_data = datas[index]
+        if (line_data.LinePoints.length === 0 && index < max_line_index) {
+          console.log("Empty line " + index);
+          line_index = index + 1;
+          iteraDrawLine(line_index);
+        }
         saveContext(__ctx_1);
         saveContext(__ctx1);
-        startDrawLine(datas[line_index].BrushType, datas[line_index]);
+        startDrawLine(line_data.BrushType, line_data);
         restoreContext(__ctx_1);
         restoreContext(__ctx1);
       }
@@ -222,10 +228,13 @@
         iteraDrawLine(line_index);
       }
 
-      _.mixin({ "eachSlice": function(obj, size, iterator, context) {
-        for (var i=0, l=obj.length; i < l; i+=size) {
-          iterator.call(context, obj.slice(i,i+size), i, obj);
-        } }});
+      _.mixin({
+        "eachSlice": function(obj, size, iterator, context) {
+          for (var i = 0, l = obj.length; i < l; i += size) {
+            iterator.call(context, obj.slice(i, i + size), i, obj);
+          }
+        }
+      });
 
       __initCanvas();
       __initBrushes();
@@ -233,4 +242,5 @@
   });
   </script>
 </body>
+
 </html>
