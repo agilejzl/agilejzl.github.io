@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Canvas Example</title>
+  <style type="text/css">
+  .canvas {
+    border: 1px solid;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  </style>
+  <script type="text/javascript" src="../../lib/jquery.min.js"></script>
+  <script type="text/javascript" src="../../lib/underscore.min.js"></script>
+</head>
+
+<body>
+  <div id="page-wrapper">
+
+    <h2>Canvase Example</h2>
+    <div>
+      Select a json text file: 
+      <input type="file" id="fileInput">
+    </div>
+    <pre id="fileDisplayArea"><pre>
+
+  </div>
+
+  <!-- tmp drawed point -->
+  <canvas id="__canvas_0" width="100" height="100" class="canvas_block hidden">
+    您的浏览器不支持canvas！
+  </canvas>
+  <!-- tmp drawed line -->
+  <canvas id="__canvas_1" width="470" height="780" class="canvas_block hidden">
+    您的浏览器不支持canvas！
+  </canvas>
+  <!-- for the finnal result -->
+  <canvas id="__canvas3" width="470" height="780" class="canvas_block ">
+    您的浏览器不支持canvas！
+  </canvas>
+  <!-- tmp drawed LinePoints -->
+  <canvas id="__canvas1" width="470" height="780" class="canvas_block hidden">
+    您的浏览器不支持canvas！
+  </canvas>
+  <!-- tmp drawed subLinePoints -->
+  <canvas id="__canvas2" width="470" height="780" class="canvas_block hidden">
+    您的浏览器不支持canvas！
+  </canvas>
+
+  <script type="text/javascript">
+  $(function() {
+    function initFileLoader() {
+      var fileInput = document.getElementById('fileInput');
+      var fileDisplayArea = document.getElementById('fileDisplayArea');
+
+      fileInput.addEventListener('change', function(e) {
+        var file = fileInput.files[0];
+        var textType = /text.*/;
+        var jsonType = /json.*/;
+
+        if (file.type.match(textType) || file.type.match(jsonType)) {
+          var reader = new FileReader();
+
+          reader.onloadstart = function(e){
+            fileDisplayArea.innerText = "Please wait, loading...";
+          }
+
+          reader.onload = function(e) {
+            fileDisplayArea.innerText = "Loaded.";
+            try {
+              datas = JSON.parse(reader.result);
+              drawMultiLines();
+              console.log(datas.length);
+            } catch (error) {
+              fileDisplayArea.innerText = error;
+            }
+          }
+
+          reader.readAsText(file);
+        } else {
+          fileDisplayArea.innerText = "File not supported!"
+        }
+      });
+    }
+
+    var __canvas_0 = document.getElementById('__canvas_0');
+    var __canvas_1 = document.getElementById('__canvas_1');
+    var __canvas1 = document.getElementById('__canvas1');
+    var __canvas2 = document.getElementById('__canvas2');
+    var __canvas3 = document.getElementById('__canvas3');
+
+    if (__canvas3.getContext) {
+      datas = [];
+
+      var __ctx_0 = __canvas_0.getContext('2d');
+      var __ctx_1 = __canvas_1.getContext('2d');
+      var __ctx1 = __canvas1.getContext('2d');
+      var __ctx2 = __canvas2.getContext('2d');
+      var __ctx3 = __canvas3.getContext('2d');
+
+      function __drawPointShape(image, ctx, point, y) {
+        var x_flip = (point.Flip[0] === false ? -1 : 1);
+        var y_flip = (point.Flip[1] === false ? -1 : 1);
+        ctx.scale(x_flip, y_flip);
+
+        var roundness = point.Roundness * 0.9 + 0.1;
+        ctx.translate(__canvas_0.width / 2, __canvas_0.height / 2);
+        ctx.rotate(-point.Radian);
+        ctx.drawImage(image, 0, 0, image.width, image.height, -point.Size / 2, -point.Size * roundness / 2, point.Size, point.Size * roundness);
+      }
+
+      function __drawPointColor(ctx, point, y) {
+        ctx.fillStyle = "rgba(" + Math.round(255 * point.Color[0]) + ", " + Math.round(255 * point.Color[1]) + ", " + Math.round(255 * point.Color[2]) + ", " + point.Flow + ")";
+        ctx.fillRect(0, 0, __canvas_0.width, __canvas_0.height);
+        // ctx.fillRect((__canvas_0.width-point.Size) / 2, (__canvas_0.height-point.Size) / 2, point.Size, point.Size);
+      }
+
+      function __drawLinePoint(image, ctx, point, y) {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.save();
+
+        __drawPointColor(ctx, point, y);
+        ctx.globalCompositeOperation = "destination-in";
+        __drawPointShape(image, ctx, point, y);
+
+        ctx.restore();
+      }
+
+      function __initCanvas() {
+        var canvas_width = 960;
+        var canvas_height = 1280;
+        __canvas_0.setAttribute("width", 70 * Math.sqrt(2));
+        __canvas_0.setAttribute("height", 70 * Math.sqrt(2));
+        __canvas_1.setAttribute("width", canvas_width);
+        __canvas_1.setAttribute("height", canvas_height);
+        __canvas1.setAttribute("width", canvas_width);
+        __canvas1.setAttribute("height", canvas_height);
+        __canvas2.setAttribute("width", canvas_width);
+        __canvas2.setAttribute("height", canvas_height);
+        __canvas3.setAttribute("width", canvas_width);
+        __canvas3.setAttribute("height", canvas_height);
+      }
+
+      function __initBrushes() {
+        brushes = [
+          [[0, 1, 2, 3, 4], []],
+          [[0], []],
+          [[0], []],
+          [[0], [0]],
+          [[0], [0]]
+        ];
+        images = [
+          [[], []],
+          [[], []],
+          [[], []],
+          [[], []],
+          [[], []]
+        ];
+
+        _.each(brushes, function(brushesLV1, indexLV1) {
+          _.each(brushesLV1, function(brushesLV2, indexLV2) {
+            _.each(brushesLV2, function(brushesLV3, indexLV3) {
+              brushes[indexLV1][indexLV2][indexLV3] = "../../brushes/" + indexLV1 + "/" + indexLV2 + "/" + indexLV3 + ".png";
+              var image = new Image();
+
+              image.onload = function() {
+                if (indexLV1 === brushes.length - 1 && indexLV2 === brushesLV1.length - 1 && indexLV3 == brushesLV2.length - 1) {
+                  console.log("Loaded last brush " + images[indexLV1][indexLV2][indexLV3].src);
+                  initFileLoader();
+                  drawMultiLines();
+                }
+              }
+              image.src = brushes[indexLV1][indexLV2][indexLV3];
+              images[indexLV1][indexLV2][indexLV3] = image;
+            });
+          });
+        });
+      }
+
+      function saveContext(ctx) {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.save();
+      }
+
+      function restoreContext(ctx) {
+        ctx.restore();
+      }
+
+      function drawSlicePoints(points, brush_index, ctx, useSubLine) {
+        _.eachSlice(points.LinePoints, slice_size, function(slice_points, slice_index) {
+          setTimeout(function() {
+            _.each(slice_points, function(point, index) {
+              point.Size = Math.round(point.Size);
+              var image1 = images[brush_index][0][point.TextureIndex];
+              var offset_x = point.Position[0] - __canvas_0.width / 2;
+              var offset_y = point.Position[1] - y - __canvas_0.height / 2;
+
+              if (index === 0) {
+                saveContext(__ctx2);
+              }
+              __drawLinePoint(image1, ctx, point, y);
+              __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width / 2, point.Position[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
+
+              if (index === slice_points.length - 1) {
+                if (useSubLine) {
+                  __ctx2.globalCompositeOperation = "source-in";
+                  __ctx2.drawImage(__ctx_1.canvas, 0, 0);
+                }
+
+                __ctx3.drawImage(__ctx2.canvas, 0, 0);
+                restoreContext(__ctx2);
+
+                if (slice_index + slice_size >= points.LinePoints.length && line_index < max_line_index) {
+                  line_index += 1;
+                  iteraDrawLine(line_index);
+                }
+              }
+            });
+          }, 2 * (slice_index % slice_size));
+        });
+      }
+
+      function startDrawLine(brush_index, points) {
+        var ctx = __ctx_0;
+        __ctx3.globalAlpha = points.Opacity;
+        __ctx3.globalCompositeOperation = "source-over";
+
+        // draw subline
+        if (points.UseSubLine) {
+          // console.log("Using subline " + points.BrushType);
+          _.each(points.SublinePoints, function(point, index) {
+            point.Size = Math.round(point.Size);
+            var image2 = images[brush_index][1][point.TextureIndex];
+            var offset_x = point.Position[0] - __canvas_0.width / 2;
+            var offset_y = point.Position[1] - y - __canvas_0.height / 2;
+
+            __drawLinePoint(image2, ctx, point, y);
+            __ctx_1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width / 2, point.Position[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
+          });
+          drawSlicePoints(points, brush_index, ctx, points.UseSubLine);
+        } else {
+          drawSlicePoints(points, brush_index, ctx, points.UseSubLine);
+        }
+      }
+
+      function iteraDrawLine(index) {
+        console.log("Drawing line " + index);
+        line_data = datas[index];
+        if (index < max_line_index && line_data.LinePoints.length === 0) {
+          console.log("Empty line " + index);
+          line_index = index + 1;
+          iteraDrawLine(line_index);
+        }
+        saveContext(__ctx_1);
+        saveContext(__ctx1);
+        startDrawLine(line_data.BrushType, line_data);
+        restoreContext(__ctx_1);
+        restoreContext(__ctx1);
+      }
+
+      // the entrance
+      window.drawMultiLines = function() {
+        // datas = _.select(datas, function(data){return data.UseSubLine});
+        if (datas.length === 0) {
+          return;
+        }
+        saveContext(__ctx_0);
+        saveContext(__ctx_1);
+        saveContext(__ctx1);
+        saveContext(__ctx2);
+        saveContext(__ctx3);
+        y = 0;
+        slice_size = 15;
+        line_index = 0;
+        max_line_index = datas.length - 1;
+        iteraDrawLine(line_index);
+      }
+
+      _.mixin({
+        "eachSlice": function(obj, size, iterator, context) {
+          for (var i = 0, l = obj.length; i < l; i += size) {
+            iterator.call(context, obj.slice(i, i + size), i, obj);
+          }
+        }
+      });
+
+      __initCanvas();
+      __initBrushes();
+    }
+  });
+  </script>
+</body>
+
+</html>
