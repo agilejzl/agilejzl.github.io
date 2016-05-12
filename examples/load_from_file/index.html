@@ -20,7 +20,7 @@
 <body>
   <div id="page-wrapper">
     <div>
-      播放速度: <input type="text" id="slice_size" value="20"></input>
+      播放速度: <input type="text" id="slice_size" value="5"></input>
     </div>
     <div>
       选择动画文件：
@@ -284,7 +284,7 @@
         line_index = 0;
         slice_size = ~~$('#slice_size').val();
         if (slice_size <= 0) {
-          slice_size = 20;
+          slice_size = 5;
           $('#slice_size').val(slice_size);
         }
         max_line_index = datas.length - 1;
