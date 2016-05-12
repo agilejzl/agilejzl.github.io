@@ -210,9 +210,14 @@
                 __ctx3.drawImage(__ctx2.canvas, 0, 0);
                 restoreContext(__ctx2);
 
-                if (slice_index + slice_size >= points.LinePoints.length && line_index < max_line_index) {
-                  line_index += 1;
-                  iteraDrawLine(line_index);
+                if (slice_index + slice_size >= points.LinePoints.length) {
+                  if (line_index < max_line_index) {
+                    line_index += 1;
+                    iteraDrawLine(line_index);
+                  } else {
+                    console.log("Done");
+                    document.getElementById('fileDisplayArea').innerText = "动画播放已经完成。";
+                  }
                 }
               }
             });
@@ -244,12 +249,13 @@
       }
 
       function iteraDrawLine(index) {
-        console.log("Drawing line " + index);
         line_data = datas[index];
         if (index < max_line_index && line_data.LinePoints.length === 0) {
           console.log("Empty line " + index);
           line_index = index + 1;
           iteraDrawLine(line_index);
+        } else {
+          console.log("Drawing line " + index);
         }
         saveContext(__ctx_1);
         saveContext(__ctx1);
