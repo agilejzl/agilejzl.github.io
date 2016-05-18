@@ -149,8 +149,6 @@
             _.each(slice_points, function(point, index) {
               point.Size = Math.round(point.Size);
               var image1 = images[brush_index][0][point.TextureIndex];
-              var offset_x = point.Position[0] - __canvas_0.width / 2;
-              var offset_y = point.Position[1] - y - __canvas_0.height / 2;
 
               if (index === 0) {
                 saveContext(__ctx2);
@@ -192,8 +190,6 @@
           _.each(points.SublinePoints, function(point, index) {
             point.Size = Math.round(point.Size);
             var image2 = images[brush_index][1][point.TextureIndex];
-            var offset_x = point.Position[0] - __canvas_0.width / 2;
-            var offset_y = point.Position[1] - y - __canvas_0.height / 2;
 
             __drawLinePoint(image2, ctx, point, y);
             __ctx_1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width / 2, point.Position[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
