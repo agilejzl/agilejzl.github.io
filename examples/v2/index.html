@@ -30,7 +30,7 @@
   </div>
 
   <!-- tmp drawed point -->
-  <canvas id="__canvas_0" width="100" height="100" class="canvas_block hidden">
+  <canvas id="__canvas_0" width="100" height="100" class="canvas_block ">
     您的浏览器不支持canvas！
   </canvas>
   <!-- tmp drawed line -->
@@ -102,30 +102,68 @@
       var __ctx2 = __canvas2.getContext('2d');
       var __ctx3 = __canvas3.getContext('2d');
 
-      function __drawPointShape(image, ctx, point, y) {
-        var x_flip = (point.Flip[0] === false ? -1 : 1);
-        var y_flip = (point.Flip[1] === false ? -1 : 1);
+      function __drawPointShape(line, image, ctx, point, y) {
+        var FP = line.FP;
+        if (line.EFP === 0) {
+          FP = point.FP;
+        }
+        var x_flip = (FP[0] === 0 ? -1 : 1);
+        var y_flip = (FP[1] === 0 ? -1 : 1);
         ctx.scale(x_flip, y_flip);
 
-        var roundness = point.Roundness * 0.9 + 0.1;
-        ctx.translate(__canvas_0.width / 2, __canvas_0.height / 2);
-        ctx.rotate(-point.Radian);
-        ctx.drawImage(image, 0, 0, image.width, image.height, -point.Size / 2, -point.Size * roundness / 2, point.Size, point.Size * roundness);
+        var roundness = 1;
+        if (line.US != 1) {
+          var R = line.RO;
+          if (line.ERO === 0) {
+            R = point.R;
+          }
+          roundness = R * 0.9 + 0.1;
+        }
+
+        var Ra;
+        if (line.US != 1) {
+          Ra = line.R;
+          if (line.ERA === 0) {
+            Ra = point.Ra;
+          }
+        } else {
+          Ra = line.SR;
+          if (line.ESR === 0) {
+            Ra = point.Ra;
+          }
+        }
+
+        // ctx.translate(__canvas_0.width / 2, __canvas_0.height / 2);
+        ctx.rotate(-Ra);
+        ctx.drawImage(image, 0, 0, image.width, image.height, -point.S / 2, -point.S * roundness / 2, point.S, point.S* roundness);
       }
 
-      function __drawPointColor(ctx, point, y) {
-        ctx.fillStyle = "rgba(" + Math.round(255 * point.Color[0]) + ", " + Math.round(255 * point.Color[1]) + ", " + Math.round(255 * point.Color[2]) + ", " + point.Flow + ")";
+      function __drawPointColor(line, ctx, point, y) {
+        var pColor = line.C;
+        if (line.EC === 0) {
+          pColor = point.C;
+        }
+
+        var FW = 1;
+        if (line.US != 1) {
+          FW = line.FW / 255;
+          if (line.EFW === 0) {
+            FW = point.FW / 255;
+          }
+        }
+
+        ctx.fillStyle = "rgba(" + Math.round(255 * pColor[0]) + ", " + Math.round(255 * pColor[1]) + ", " + Math.round(255 * pColor[2]) + ", " + FW + ")";
         ctx.fillRect(0, 0, __canvas_0.width, __canvas_0.height);
-        // ctx.fillRect((__canvas_0.width-point.Size) / 2, (__canvas_0.height-point.Size) / 2, point.Size, point.Size);
+        // ctx.fillRect((__canvas_0.width-point.S) / 2, (__canvas_0.height-point.S) / 2, point.S, point.S);
       }
 
-      function __drawLinePoint(image, ctx, point, y) {
+      function __drawLinePoint(line, image, ctx, point, y) {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.save();
 
-        __drawPointColor(ctx, point, y);
+        __drawPointColor(line, ctx, point, y);
         ctx.globalCompositeOperation = "destination-in";
-        __drawPointShape(image, ctx, point, y);
+        __drawPointShape(line, image, ctx, point, y);
 
         ctx.restore();
       }
@@ -190,21 +228,36 @@
         ctx.restore();
       }
 
-      function drawSlicePoints(points, brush_index, ctx, useSubLine) {
-        _.eachSlice(points.LinePoints, slice_size, function(slice_points, slice_index) {
+      function drawSlicePoints(line, brush_index, ctx, useSubLine) {
+        _.eachSlice(line.LP, slice_size, function(slice_points, slice_index) {
           setTimeout(function() {
             _.each(slice_points, function(point, index) {
-              point.Size = Math.round(point.Size);
-              var image1 = images[brush_index][0][point.TextureIndex];
+              var point_size = point.S;
+              if (line.US != 1) {
+                if (line.ES === 1) {
+                  point_size = line.S;
+                }
+              } else {
+                if (line.ESS === 1) {
+                  point_size = line.SS;
+                }
+              }
+              point.S = Math.round(point_size);
+
+              var T = line.T;
+              if (line.ET === 0) {
+                T = point.T;
+              }
+              var image1 = images[brush_index][0][T];
 
               if (index === 0) {
                 saveContext(__ctx2);
               }
-              __drawLinePoint(image1, ctx, point, y);
-              __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width / 2, point.Position[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
+              __drawLinePoint(line, image1, ctx, point, y);
+              __ctx2.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.P[0] - __canvas_0.width / 2, point.P[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
 
               if (index === slice_points.length - 1) {
-                if (useSubLine) {
+                if (useSubLine === 1) {
                   __ctx2.globalCompositeOperation = "source-in";
                   __ctx2.drawImage(__ctx_1.canvas, 0, 0);
                 }
@@ -212,7 +265,7 @@
                 __ctx3.drawImage(__ctx2.canvas, 0, 0);
                 restoreContext(__ctx2);
 
-                if (slice_index + slice_size >= points.LinePoints.length) {
+                if (slice_index + slice_size >= line.LP.length) {
                   if (line_index < max_line_index) {
                     line_index += 1;
                     iteraDrawLine(line_index);
@@ -227,30 +280,46 @@
         });
       }
 
-      function startDrawLine(brush_index, points) {
+      function startDrawLine(line) {
+        var brush_index = line.BT;
         var ctx = __ctx_0;
-        __ctx3.globalAlpha = points.Opacity;
+        __ctx3.globalAlpha = line.O;
         __ctx3.globalCompositeOperation = "source-over";
 
         // draw subline
-        if (points.UseSubLine) {
-          // console.log("Using subline " + points.BrushType);
-          _.each(points.SublinePoints, function(point, index) {
-            point.Size = Math.round(point.Size);
-            var image2 = images[brush_index][1][point.TextureIndex];
+        if (line.US === 1) {
+          // console.log("Using subline " + line.BT);
+          _.each(line.SP, function(point, index) {
+            var point_size = point.S;
+            if (line.US != 1) {
+              if (line.ES === 1) {
+                point_size = line.S;
+              }
+            } else {
+              if (line.ESS === 1) {
+                point_size = line.SS;
+              }
+            }
+            point.S = Math.round(point_size);
 
-            __drawLinePoint(image2, ctx, point, y);
-            __ctx_1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.Position[0] - __canvas_0.width / 2, point.Position[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
+            var T = line.T;
+            if (line.ET === 0) {
+              T = point.T;
+            }
+            var image2 = images[brush_index][1][T];
+
+            __drawLinePoint(line, image2, ctx, point, y);
+            __ctx_1.drawImage(ctx.canvas, 0, 0, __canvas_0.width, __canvas_0.height, point.P[0] - __canvas_0.width / 2, point.P[1] - y - __canvas_0.height / 2, __canvas_0.width, __canvas_0.height);
           });
-          drawSlicePoints(points, brush_index, ctx, points.UseSubLine);
+          drawSlicePoints(line, brush_index, ctx, line.US);
         } else {
-          drawSlicePoints(points, brush_index, ctx, points.UseSubLine);
+          drawSlicePoints(line, brush_index, ctx, line.US);
         }
       }
 
       function iteraDrawLine(index) {
-        line_data = datas[index];
-        if (index < max_line_index && line_data.LinePoints.length === 0) {
+        var line = datas[index];
+        if (index < max_line_index && line.LP.length === 0) {
           console.log("Empty line " + index);
           line_index = index + 1;
           iteraDrawLine(line_index);
@@ -259,14 +328,14 @@
         }
         saveContext(__ctx_1);
         saveContext(__ctx1);
-        startDrawLine(line_data.BrushType, line_data);
+        startDrawLine(line);
         restoreContext(__ctx_1);
         restoreContext(__ctx1);
       }
 
       // the entrance
       window.drawMultiLines = function() {
-        // datas = _.select(datas, function(data){return data.UseSubLine});
+        // datas = _.select(datas, function(data){return data.US === 1});
         if (datas.length === 0) {
           return;
         }
