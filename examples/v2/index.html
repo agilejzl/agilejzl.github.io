@@ -146,13 +146,13 @@
 
         var FW = 1;
         if (line.US != 1) {
-          FW = line.FW / 255;
+          FW = line.FW;
           if (line.EFW === 0) {
-            FW = point.FW / 255;
+            FW = point.FW;
           }
         }
 
-        ctx.fillStyle = "rgba(" + Math.round(255 * pColor[0]) + ", " + Math.round(255 * pColor[1]) + ", " + Math.round(255 * pColor[2]) + ", " + FW + ")";
+        ctx.fillStyle = "rgba(" + Math.round(pColor[0]) + ", " + Math.round(pColor[1]) + ", " + Math.round(pColor[2]) + ", " + FW + ")";
         ctx.fillRect(0, 0, __canvas_0.width, __canvas_0.height);
         // ctx.fillRect((__canvas_0.width-point.S) / 2, (__canvas_0.height-point.S) / 2, point.S, point.S);
       }
@@ -185,18 +185,20 @@
 
       function __initBrushes() {
         brushes = [
-          [[0, 1, 2, 3, 4], []],
-          [[0], []],
-          [[0], []],
+          [[0, 1, 2, 3, 4]],
+          [[0]],
+          [[0]],
           [[0], [0]],
-          [[0], [0]]
+          [[0], [0]],
+          [[0]]
         ];
         images = [
           [[], []],
+          [[]],
+          [[]],
           [[], []],
           [[], []],
-          [[], []],
-          [[], []]
+          [[]]
         ];
 
         _.each(brushes, function(brushesLV1, indexLV1) {
@@ -324,7 +326,7 @@
           line_index = index + 1;
           iteraDrawLine(line_index);
         } else {
-          console.log("Drawing line " + index);
+          console.log("Line " + index, " type " + line.BT);
         }
         saveContext(__ctx_1);
         saveContext(__ctx1);
